@@ -1,0 +1,16 @@
+{
+  "name": "process-calls",
+  "version": "0.0.1",
+  "description": "sync promisses and callbacks",
+  "main": "./lib/index",
+  "keywords": [
+    "promisse",
+    "calback",
+    "resolve"
+  ],
+  "author": "erickstryck",
+  "license": "MIT",
+  "dependencies": {
+    "deasync": "^0.1.9"
+  }
+}
