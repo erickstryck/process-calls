@@ -21,7 +21,7 @@ Função responsável por iniciar o processo de manipulação da espera dos call
 -   `type` **[number][10]**  (optional, default `3`)
 
 #### Resolução te tipos
-#### 1 - Resolve callbacks simples que não possuí promisses.
+#### 1 - Resolve callbacks simples que não possuem promisses.
 #### 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
 #### 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
 

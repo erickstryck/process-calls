@@ -45,7 +45,7 @@ export class ProcessCalls {
 
   /**
    * Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
-   * 1 - Resolve callbacks simples que não possuí promisses.
+   * 1 - Resolve callbacks simples que não possuem promisses.
    * 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
    * 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
    * 
