@@ -16,7 +16,7 @@ Função responsável por iniciar o processo de manipulação da espera dos call
 
 #### Parameters
 
--   `target` **[object][9]**
+-   `target` **[object][9]** => Função que gera a promisse ou callback
 -   `params` **any**  (optional, default `[]`)
 -   `type` **[number][10]**  (optional, default `3`)
 
