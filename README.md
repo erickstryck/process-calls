@@ -3,34 +3,12 @@
 ### Table of Contents
 
 -   [ProcessCalls][1]
-    -   [processAsync][2]
+    -   [receiveProc][2]
         -   [Parameters][3]
-    -   [getInstance][4]
-    -   [receiveProc][5]
-        -   [Parameters][6]
-    -   [getId][7]
 
 ## ProcessCalls
 
 Classe responsável por prover a resolução de promisses e callbacks.
-
-### processAsync
-
-Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
-#### 1 - Resolve callbacks simples que não possuí promisses.
-#### 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
-#### 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
-
-#### Parameters
-
--   `key` **[string][8]**
--   `target` **[object][9]**
--   `params` **any**
--   `type` **[number][10]**
-
-### getInstance
-
-Singleton que prove a intancia unica para manipulamento de intâncias internas
 
 ### receiveProc
 
@@ -42,25 +20,16 @@ Função responsável por iniciar o processo de manipulação da espera dos call
 -   `params` **any**  (optional, default `[]`)
 -   `type` **[number][10]**  (optional, default `3`)
 
-### getId
-
-Função responsável por prover uma key unica para diferenciar as intâncias de monitoramento das esperas
+#### Resolução te tipos
+#### 1 - Resolve callbacks simples que não possuí promisses.
+#### 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
+#### 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
 
 [1]: #processcalls
 
-[2]: #processasync
+[2]: #receiveproc
 
 [3]: #parameters
-
-[4]: #getinstance
-
-[5]: #receiveproc
-
-[6]: #parameters-1
-
-[7]: #getid
-
-[8]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
 
 [9]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
 
