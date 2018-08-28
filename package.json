@@ -1,8 +1,9 @@
 {
   "name": "process-calls",
   "version": "0.0.1",
-  "description": "sync promisses and callbacks",
-  "main": "./index",
+  "description": "Resolve promisses and callbacks",
+  "readmeFilename": "README.md" ,
+  "main": "./dist/index.js",
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./README.md,./package-lock.json,./LICENSE,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/index.js"
@@ -10,12 +11,22 @@
   "keywords": [
     "promisse",
     "calback",
-    "resolve"
+    "resolve",
+    "async"
   ],
-  "author": "erickstryck",
+  "author": {
+    "name": "erickstryck"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erickstryck/process-calls"
+  },
   "license": "MIT",
   "dependencies": {
     "deasync": "^0.1.9"
+  },
+  "engines": {
+    "node": ">=5.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
