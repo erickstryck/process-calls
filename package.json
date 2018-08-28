@@ -2,9 +2,9 @@
   "name": "process-calls",
   "version": "0.0.1",
   "description": "sync promisses and callbacks",
-  "main": "./lib/index",
-   "scripts": {
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+  "main": "./index",
+  "scripts": {
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./README.md,./package-lock.json,./LICENSE,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/index.js"
   },
   "keywords": [

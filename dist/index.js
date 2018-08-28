@@ -16,20 +16,45 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var instance = '';
+/**
+ * Classe responsável por prover a resolução de promisses e callbacks.
+ */
 
 var ProcessCalls = exports.ProcessCalls = function () {
+
+  /**
+   * Construtor da classe
+   */
   function ProcessCalls() {
     _classCallCheck(this, ProcessCalls);
 
     this.response = {};
   }
 
+  /**
+   * Singleton que prove a intancia unica para manipulamento de intâncias internas
+   */
+
+
   _createClass(ProcessCalls, [{
     key: 'processAsync',
-    value: async function processAsync(key, classe, meth, params, type) {
+
+
+    /**
+     * Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
+     * 1 - Resolve callbacks simples que não possuí promisses.
+     * 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
+     * 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
+     * 
+     * @param {string} key 
+     * @param {object} target 
+     * @param {*} params 
+     * @param {number} type 
+     */
+    value: async function processAsync(key, target, params, type) {
       var result = '';
       if (type === 1) {
-        result = await Reflect.apply(meth ? classe[meth] : classe, classe, params).catch(function (e) {
+        result = await Reflect.apply(target, target, params).catch(function (e) {
           return e;
         });
       } else if (type === 2) {
@@ -38,7 +63,7 @@ var ProcessCalls = exports.ProcessCalls = function () {
           params.push(function (sucess) {
             resolve(sucess);
           });
-          Reflect.apply(meth ? classe[meth] : classe, classe, params);
+          Reflect.apply(target, target, params);
         }).catch(function (e) {
           return e;
         });
@@ -53,13 +78,18 @@ var ProcessCalls = exports.ProcessCalls = function () {
               resolve(sucess);
             }
           });
-          Reflect.apply(meth ? classe[meth] : classe, classe, params);
+          Reflect.apply(target, target, params);
         }).catch(function (e) {
           return e;
         });
       }
       ProcessCalls.getInstance().response[key] = result;
     }
+
+    /**
+     * Função responsável por prover uma key unica para diferenciar as intâncias de monitoramento das esperas
+     */
+
   }], [{
     key: 'getInstance',
     value: function getInstance() {
@@ -70,15 +100,23 @@ var ProcessCalls = exports.ProcessCalls = function () {
         return instance;
       }
     }
+
+    /**
+     * Função responsável por iniciar o processo de manipulação da espera dos callbacks e promessas
+     * 
+     * @param {object} target 
+     * @param {*} params 
+     * @param {number} type 
+     */
+
   }, {
     key: 'receiveProc',
-    value: function receiveProc(classe) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
-      var meth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
-      var params = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
+    value: function receiveProc(target) {
+      var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3;
 
       var key = ProcessCalls.getId();
-      ProcessCalls.getInstance().processAsync(key, classe, meth, params, type);
+      ProcessCalls.getInstance().processAsync(key, target, params, type);
       while (ProcessCalls.getInstance().response[key] === undefined) {
         _deasync2.default.runLoopOnce();
       }
