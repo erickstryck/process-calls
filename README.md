@@ -14,7 +14,7 @@ Classe responsável por prover a resolução de promisses e callbacks.
 ```
 import ProcessCalls from 'process-calls';
 
-let myValueReolved = ProcessCalls.receiveProc(funcPromisseOrCallback, paramsOfFunc, type);
+let myValueResolved = ProcessCalls.receiveProc(funcPromisseOrCallback, paramsOfFunc, type);
 ```
 ### receiveProc
 
