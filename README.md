@@ -10,6 +10,12 @@
 
 Classe responsável por prover a resolução de promisses e callbacks.
 
+####Importando
+```
+import ProcessCalls from 'process-calls';
+
+let myValueReolved = ProcessCalls.receiveProc(funcPromisseOrCallback, paramsOfFunc, type);
+```
 ### receiveProc
 
 Função responsável por iniciar o processo de manipulação da espera dos callbacks e promessas
