@@ -4,7 +4,7 @@ let instance='';
 /**
  * Classe responsável por prover a resolução de promisses e callbacks.
  */
-export default class ProcessCalls {
+class ProcessCalls {
 
   /**
    * Construtor da classe
@@ -97,3 +97,5 @@ export default class ProcessCalls {
   }
 
 }
+
+export default ProcessCalls;

@@ -1,6 +1,6 @@
 {
   "name": "process-calls",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Resolve promisses and callbacks",
   "readmeFilename": "README.md" ,
   "main": "./dist/index.js",
