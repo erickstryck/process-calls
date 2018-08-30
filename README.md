@@ -12,11 +12,14 @@ Classe responsável por prover a resolução de promisses e callbacks.
 
 Essa biblioteca funciona apenas 'server-side' com NodeJs ^5.0.0
 
-####Importando
+####Importando e exemplo de uso
 ```
+import fs from 'fs';
 import ProcessCalls from 'process-calls';
 
-let myValueResolved = ProcessCalls.receiveProc(funcPromisseOrCallback, paramsOfFunc, type);
+var myValue = ProcessCalls.receiveProc(fs.readdir,'./', 3);
+
+console.log(myValue);
 ```
 ### receiveProc
 
@@ -26,12 +29,12 @@ Função responsável por iniciar o processo de manipulação da espera dos call
 
 -   `target` **[object][9]** => Função que gera a promisse ou callback
 -   `params` **any**  (optional, default `[]`)
--   `type` **[number][10]**  (optional, default `3`)
+-   `type` **[number][10]**  (optional, default `1`)
 
 #### Resolução te tipos
-#### 1 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
-#### 2 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
-#### 3 - Resolve callbacks simples que não possuem promisses.
+#### 1 - Resolve callbacks simples que não possuem promisses.
+#### 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
+#### 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
 
 [1]: #processcalls
 

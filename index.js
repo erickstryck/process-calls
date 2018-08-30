@@ -1,6 +1,6 @@
 import deasync from 'deasync';
 
-let instance='';
+let instance = '';
 /**
  * Classe responsável por prover a resolução de promisses e callbacks.
  */
@@ -17,7 +17,7 @@ class ProcessCalls {
    * Singleton que prove a intancia unica para manipulamento de intâncias internas
    */
   static getInstance() {
-    if(instance) {
+    if (instance) {
       return instance;
     } else {
       instance = new ProcessCalls();
@@ -32,13 +32,16 @@ class ProcessCalls {
    * @param {*} params 
    * @param {number} type 
    */
-  static receiveProc(target,params=[],type=1) {
-    let key=ProcessCalls.getId();
-    ProcessCalls.getInstance().processAsync(key,target,params,type);
-    while(ProcessCalls.getInstance().response[key] === undefined) {
+  static receiveProc(target, params = [], type = 1) {
+    if (!Array.isArray(params)) {
+      params = new Array(params);
+    }
+    let key = ProcessCalls.getId();
+    ProcessCalls.getInstance().processAsync(key, target, params, type);
+    while (ProcessCalls.getInstance().response[key] === undefined) {
       deasync.runLoopOnce();
     }
-    let response=ProcessCalls.getInstance().response[key];
+    let response = ProcessCalls.getInstance().response[key];
     delete ProcessCalls.getInstance().response[key];
     return response;
   }
@@ -54,33 +57,33 @@ class ProcessCalls {
    * @param {*} params 
    * @param {number} type 
    */
-  async processAsync(key,target,params,type) {
-    let result='';
-    if(type===1) {
-      result=await Reflect.apply(target,target,params).catch((e) => e);
-    } else if(type===2) {
-      result=await new Promise((resolve, reject)=>{
-        let sucess='';
-        params.push((sucess)=>{
+  async processAsync(key, target, params, type) {
+    let result = '';
+    if (type === 1) {
+      result = await Reflect.apply(target, target, params).catch((e) => e);
+    } else if (type === 2) {
+      result = await new Promise((resolve, reject) => {
+        let sucess = '';
+        params.push((sucess) => {
           resolve(sucess);
         });
-        Reflect.apply(target,target,params);
+        Reflect.apply(target, target, params);
       }).catch((e) => e);
     } else {
-      result=await new Promise((resolve, reject)=>{
-        let sucess='';
-        params.push((err,sucess)=>{
-          if(err) {
+      result = await new Promise((resolve, reject) => {
+        let sucess = '';
+        params.push((err, sucess) => {
+          if (err) {
             reject(err);
             return;
           } else {
             resolve(sucess);
           }
         });
-        Reflect.apply(target,target,params);
+        Reflect.apply(target, target, params);
       }).catch((e) => e);
     }
-    ProcessCalls.getInstance().response[key]=result;
+    ProcessCalls.getInstance().response[key] = result;
   }
 
   /**
@@ -89,11 +92,11 @@ class ProcessCalls {
   static getId() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
+        .toString(16)
+        .substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-    s4() + '-' + s4() + s4() + s4();
+      s4() + '-' + s4() + s4() + s4();
   }
 
 }

@@ -114,6 +114,9 @@ var ProcessCalls = function () {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
+      if (!Array.isArray(params)) {
+        params = new Array(params);
+      }
       var key = ProcessCalls.getId();
       ProcessCalls.getInstance().processAsync(key, target, params, type);
       while (ProcessCalls.getInstance().response[key] === undefined) {
