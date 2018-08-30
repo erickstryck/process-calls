@@ -10,6 +10,8 @@
 
 Classe responsável por prover a resolução de promisses e callbacks.
 
+Essa biblioteca funciona apenas 'server-side' com NodeJs ^5.0.0
+
 ####Importando
 ```
 import ProcessCalls from 'process-calls';
