@@ -8,7 +8,7 @@
 
 ## ProcessCalls
 
-Classe responsável por prover a resolução de promisses e callbacks.
+Responsável por prover a resolução de promisses e callbacks os tornado síncronos.
 
 Essa biblioteca funciona apenas 'server-side' com NodeJs ^5.0.0
 
