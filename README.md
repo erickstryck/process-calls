@@ -12,12 +12,26 @@ Responsável por prover a resolução de promisses e callbacks os tornado síncr
 
 Essa biblioteca funciona apenas 'server-side' com NodeJs ^5.0.0
 
-####Importando e exemplo de uso
+####Exemplos de uso
+
+####ES6
+
 ```
 import fs from 'fs';
 import ProcessCalls from 'process-calls';
 
 var myValue = ProcessCalls.receiveProc(fs.readdir,'./', 3);
+
+console.log(myValue);
+```
+
+####ES5
+
+```
+var fs = require('fs');
+var ProcessCalls = require('process-calls');
+
+var myValue = ProcessCalls.default.receiveProc(fs.readdir,'./', 3);
 
 console.log(myValue);
 ```
