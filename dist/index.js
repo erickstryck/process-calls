@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ProcessCalls = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -20,7 +19,7 @@ var instance = '';
  * Classe responsável por prover a resolução de promisses e callbacks.
  */
 
-var ProcessCalls = exports.ProcessCalls = function () {
+var ProcessCalls = function () {
 
   /**
    * Construtor da classe
@@ -42,7 +41,7 @@ var ProcessCalls = exports.ProcessCalls = function () {
 
     /**
      * Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
-     * 1 - Resolve callbacks simples que não possuí promisses.
+     * 1 - Resolve callbacks simples que não possuem promisses.
      * 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
      * 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
      * 
@@ -113,7 +112,7 @@ var ProcessCalls = exports.ProcessCalls = function () {
     key: 'receiveProc',
     value: function receiveProc(target) {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3;
+      var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
       var key = ProcessCalls.getId();
       ProcessCalls.getInstance().processAsync(key, target, params, type);
@@ -136,3 +135,5 @@ var ProcessCalls = exports.ProcessCalls = function () {
 
   return ProcessCalls;
 }();
+
+exports.default = ProcessCalls;

@@ -4,7 +4,7 @@ let instance='';
 /**
  * Classe responsável por prover a resolução de promisses e callbacks.
  */
-export class ProcessCalls {
+export default class ProcessCalls {
 
   /**
    * Construtor da classe
@@ -32,7 +32,7 @@ export class ProcessCalls {
    * @param {*} params 
    * @param {number} type 
    */
-  static receiveProc(target,params=[],type=3) {
+  static receiveProc(target,params=[],type=1) {
     let key=ProcessCalls.getId();
     ProcessCalls.getInstance().processAsync(key,target,params,type);
     while(ProcessCalls.getInstance().response[key] === undefined) {
@@ -45,9 +45,9 @@ export class ProcessCalls {
 
   /**
    * Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
-   * 1 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
-   * 2 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
-   * 3 - Resolve callbacks simples que não possuem promisses.
+   * 1 - Resolve callbacks simples que não possuem promisses.
+   * 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
+   * 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
    * 
    * @param {string} key 
    * @param {object} target 
