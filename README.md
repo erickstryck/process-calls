@@ -8,11 +8,10 @@
 
 ## ProcessCalls
 
-Responsável por prover a resolução de promisses e callbacks os tornado síncronos.
+Performs synchronization and resolution of callbacks and promises.
+It works only server-side with NodeJs 5.0.0 or higher.
 
-Essa biblioteca funciona apenas 'server-side' com NodeJs ^5.0.0
-
-####Exemplos de uso
+####Examples of use
 
 ####ES6
 
@@ -37,18 +36,18 @@ console.log(myValue);
 ```
 ### receiveProc
 
-Função responsável por iniciar o processo de manipulação da espera dos callbacks e promessas
+Function responsible for initiating the process of handling the waiting for the callbacks and promises.
 
 #### Parameters
 
--   `target` **[object][9]** => Função que gera a promisse ou callback
+-   `target` **[object][9]** => Function that generates a promise or callback
 -   `params` **any**  (optional, default `[]`)
 -   `type` **[number][10]**  (optional, default `1`)
 
-#### Resolução te tipos
-#### 1 - Resolve callbacks simples que não possuem promisses.
-#### 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
-#### 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
+#### Type resolution
+#### 1 - Solve simple callbacks that don't has promises.
+#### 2 - Solve promises that do not have a rejection treatment.
+#### 3 - Solve promises that have a rejection treatment.
 
 [1]: #processcalls
 
