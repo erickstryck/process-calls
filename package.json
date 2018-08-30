@@ -1,8 +1,8 @@
 {
   "name": "process-calls",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Make promisses and callbacks synchronous",
-  "readmeFilename": "README.md" ,
+  "readmeFilename": "README.md",
   "main": "./dist/index.js",
   "scripts": {
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./README.md,./package-lock.json,./LICENSE,./npm-debug.log --copy-files",
