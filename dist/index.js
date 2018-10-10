@@ -10,7 +10,11 @@ var _deasync = require('deasync');
 
 var _deasync2 = _interopRequireDefault(_deasync);
 
+require('babel-polyfill');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -41,49 +45,62 @@ var ProcessCalls = function () {
 
     /**
      * Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
-     * 1 - Resolve callbacks simples que não possuem promisses.
-     * 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
-     * 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
      * 
      * @param {string} key 
      * @param {object} target 
-     * @param {*} params 
-     * @param {number} type 
+     * @param {*} params
      */
-    value: async function processAsync(key, target, params, type) {
-      var result = '';
-      if (type === 1) {
-        result = await Reflect.apply(target, target, params).catch(function (e) {
-          return e;
-        });
-      } else if (type === 2) {
-        result = await new Promise(function (resolve, reject) {
-          var sucess = '';
-          params.push(function (sucess) {
-            resolve(sucess);
-          });
-          Reflect.apply(target, target, params);
-        }).catch(function (e) {
-          return e;
-        });
-      } else {
-        result = await new Promise(function (resolve, reject) {
-          var sucess = '';
-          params.push(function (err, sucess) {
-            if (err) {
-              reject(err);
-              return;
-            } else {
-              resolve(sucess);
+    value: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(key, target, params) {
+        var result;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                result = '';
+                _context.prev = 1;
+                _context.next = 4;
+                return new Promise(function (resolve, reject) {
+                  params.push(function (err, sucess) {
+                    if (err) {
+                      reject(err);
+                      return;
+                    } else {
+                      resolve(sucess);
+                    }
+                  });
+                  Reflect.apply(target, undefined, params);
+                });
+
+              case 4:
+                result = _context.sent;
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context['catch'](1);
+
+                console.err(_context.t0.toString());
+
+              case 10:
+
+                ProcessCalls.getInstance().response[key] = result;
+
+              case 11:
+              case 'end':
+                return _context.stop();
             }
-          });
-          Reflect.apply(target, target, params);
-        }).catch(function (e) {
-          return e;
-        });
+          }
+        }, _callee, this, [[1, 7]]);
+      }));
+
+      function processAsync(_x, _x2, _x3) {
+        return _ref.apply(this, arguments);
       }
-      ProcessCalls.getInstance().response[key] = result;
-    }
+
+      return processAsync;
+    }()
 
     /**
      * Função responsável por prover uma key unica para diferenciar as intâncias de monitoramento das esperas
@@ -104,21 +121,19 @@ var ProcessCalls = function () {
      * Função responsável por iniciar o processo de manipulação da espera dos callbacks e promessas
      * 
      * @param {object} target 
-     * @param {*} params 
-     * @param {number} type 
+     * @param {*} params
      */
 
   }, {
     key: 'receiveProc',
     value: function receiveProc(target) {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
       if (!Array.isArray(params)) {
         params = new Array(params);
       }
       var key = ProcessCalls.getId();
-      ProcessCalls.getInstance().processAsync(key, target, params, type);
+      ProcessCalls.getInstance().processAsync(key, target, params);
       while (ProcessCalls.getInstance().response[key] === undefined) {
         _deasync2.default.runLoopOnce();
       }

@@ -19,7 +19,7 @@ It works only server-side with NodeJs 5.0.0 or higher.
 import fs from 'fs';
 import ProcessCalls from 'process-calls';
 
-var myValue = ProcessCalls.receiveProc(fs.readdir,'./', 3);
+var myValue = ProcessCalls.receiveProc(fs.readdir,'./');
 
 console.log(myValue);
 ```
@@ -30,7 +30,7 @@ console.log(myValue);
 var fs = require('fs');
 var ProcessCalls = require('process-calls');
 
-var myValue = ProcessCalls.default.receiveProc(fs.readdir,'./', 3);
+var myValue = ProcessCalls.default.receiveProc(fs.readdir,'./');
 
 console.log(myValue);
 ```
@@ -42,12 +42,6 @@ Function responsible for initiating the process of handling the waiting for the 
 
 -   `target` **[object][9]** => Function that generates a promise or callback
 -   `params` **any**  (optional, default `[]`)
--   `type` **[number][10]**  (optional, default `1`)
-
-#### Type resolution
-#### 1 - Solve simple callbacks that don't has promises.
-#### 2 - Solve promises that do not have a rejection treatment.
-#### 3 - Solve promises that have a rejection treatment.
 
 [1]: #processcalls
 
