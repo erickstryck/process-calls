@@ -1,4 +1,5 @@
 import deasync from 'deasync';
+import "babel-polyfill";
 
 let instance = '';
 /**
@@ -29,15 +30,14 @@ class ProcessCalls {
    * Função responsável por iniciar o processo de manipulação da espera dos callbacks e promessas
    * 
    * @param {object} target 
-   * @param {*} params 
-   * @param {number} type 
+   * @param {*} params
    */
-  static receiveProc(target, params = [], type = 1) {
+  static receiveProc(target, params = []) {
     if (!Array.isArray(params)) {
       params = new Array(params);
     }
     let key = ProcessCalls.getId();
-    ProcessCalls.getInstance().processAsync(key, target, params, type);
+    ProcessCalls.getInstance().processAsync(key, target, params);
     while (ProcessCalls.getInstance().response[key] === undefined) {
       deasync.runLoopOnce();
     }
@@ -48,30 +48,15 @@ class ProcessCalls {
 
   /**
    * Função responsável aplicar e monitorar os estados de espera da resolução dos callbacks e promisses
-   * 1 - Resolve callbacks simples que não possuem promisses.
-   * 2 - Resolve promisses que não possuem um tratamento de erro no "THEN", ou seja, não existe tratamento de rejeição.
-   * 3 - Resolve promisses que possuem um tratamento de erro no "THEN", ou seja, existe tratamento de rejeição.
    * 
    * @param {string} key 
    * @param {object} target 
-   * @param {*} params 
-   * @param {number} type 
+   * @param {*} params
    */
-  async processAsync(key, target, params, type) {
+  async processAsync(key, target, params) {
     let result = '';
-    if (type === 1) {
-      result = await Reflect.apply(target, target, params).catch((e) => e);
-    } else if (type === 2) {
+    try {
       result = await new Promise((resolve, reject) => {
-        let sucess = '';
-        params.push((sucess) => {
-          resolve(sucess);
-        });
-        Reflect.apply(target, target, params);
-      }).catch((e) => e);
-    } else {
-      result = await new Promise((resolve, reject) => {
-        let sucess = '';
         params.push((err, sucess) => {
           if (err) {
             reject(err);
@@ -80,9 +65,12 @@ class ProcessCalls {
             resolve(sucess);
           }
         });
-        Reflect.apply(target, target, params);
-      }).catch((e) => e);
+        Reflect.apply(target, undefined, params);
+      });
+    } catch (e) {
+      console.err(e.toString());
     }
+
     ProcessCalls.getInstance().response[key] = result;
   }
 
