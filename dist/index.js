@@ -59,7 +59,22 @@ var ProcessCalls = function () {
               case 0:
                 result = '';
                 _context.prev = 1;
-                _context.next = 4;
+
+                if (!(target instanceof Promise)) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 5;
+                return target;
+
+              case 5:
+                result = _context.sent;
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.next = 10;
                 return new Promise(function (resolve, reject) {
                   params.push(function (err, sucess) {
                     if (err) {
@@ -72,27 +87,29 @@ var ProcessCalls = function () {
                   Reflect.apply(target, undefined, params);
                 });
 
-              case 4:
+              case 10:
                 result = _context.sent;
-                _context.next = 10;
+
+              case 11:
+                _context.next = 16;
                 break;
 
-              case 7:
-                _context.prev = 7;
+              case 13:
+                _context.prev = 13;
                 _context.t0 = _context['catch'](1);
 
                 console.error(_context.t0.toString());
 
-              case 10:
+              case 16:
 
                 ProcessCalls.getInstance().response[key] = result;
 
-              case 11:
+              case 17:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[1, 7]]);
+        }, _callee, this, [[1, 13]]);
       }));
 
       function processAsync(_x, _x2, _x3) {

@@ -56,17 +56,21 @@ class ProcessCalls {
   async processAsync(key, target, params) {
     let result = '';
     try {
-      result = await new Promise((resolve, reject) => {
-        params.push((err, sucess) => {
-          if (err) {
-            reject(err);
-            return;
-          } else {
-            resolve(sucess);
-          }
+      if (target instanceof Promise) {
+        result = await target;
+      } else {
+        result = await new Promise((resolve, reject) => {
+          params.push((err, sucess) => {
+            if (err) {
+              reject(err);
+              return;
+            } else {
+              resolve(sucess);
+            }
+          });
+          Reflect.apply(target, undefined, params);
         });
-        Reflect.apply(target, undefined, params);
-      });
+      }
     } catch (e) {
       console.error(e.toString());
     }

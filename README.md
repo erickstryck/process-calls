@@ -24,6 +24,24 @@ var myValue = ProcessCalls.receiveProc(fs.readdir,'./');
 console.log(myValue);
 ```
 
+```
+import ProcessCalls from 'process-calls';
+
+let myPromisse = new Promise(function (resolve, reject) {
+    setTimeout(() => {
+        try {
+            resolve("return string")
+        } catch (ex) {
+            reject("is bad status");
+        }
+    }, 5000);
+});
+
+var myValue = ProcessCalls.receiveProc(myPromisse);
+
+console.log(myValue);
+```
+
 ####ES5
 
 ```
@@ -34,6 +52,25 @@ var myValue = ProcessCalls.default.receiveProc(fs.readdir,'./');
 
 console.log(myValue);
 ```
+
+```
+var ProcessCalls = require('process-calls');
+
+var myPromisse = new Promise(function (resolve, reject) {
+    setTimeout(function () {
+        try {
+            resolve("return string");
+        } catch (ex) {
+            reject("is bad status");
+        }
+    }, 5000);
+});
+
+var myValue = ProcessCalls.default.receiveProc(myPromisse);
+
+console.log(myValue);
+```
+
 ### receiveProc
 
 Function responsible for initiating the process of handling the waiting for the callbacks and promises.
