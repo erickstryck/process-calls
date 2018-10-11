@@ -81,7 +81,7 @@ var ProcessCalls = function () {
                 _context.prev = 7;
                 _context.t0 = _context['catch'](1);
 
-                console.err(_context.t0.toString());
+                console.error(_context.t0.toString());
 
               case 10:
 

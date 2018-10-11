@@ -68,7 +68,7 @@ class ProcessCalls {
         Reflect.apply(target, undefined, params);
       });
     } catch (e) {
-      console.err(e.toString());
+      console.error(e.toString());
     }
 
     ProcessCalls.getInstance().response[key] = result;
